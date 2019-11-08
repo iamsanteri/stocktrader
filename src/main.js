@@ -11,7 +11,7 @@ const router = new VueRouter({
   mode: "history",
   routes: [
     { path: "/", component: Home },
-    { path: "/portfolio", component: Portfolio  }
+    { path: "/portfolio", component: Portfolio }
   ]
 });
 

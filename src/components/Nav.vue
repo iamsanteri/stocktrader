@@ -3,19 +3,19 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" v-on:click="mobileMenuTrigger" aria-expanded="this.ariaExpanded">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Stock Trader</a>
+        <router-link class="navbar-brand" to="/">Stock Trader</router-link>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li><a href="#">Portfolio</a></li>
+            <li><router-link to="/portfolio">Portfolio</router-link></li>
             <li><a href="#">Stocks</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -37,6 +37,15 @@
     </nav>
 </template>
 <script>
+export default {
+    data: function() {
+        return {
+        }
+    },
+    methods: {
+    }
+}
+
 </script>
 <style>
 
