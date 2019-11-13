@@ -6,11 +6,15 @@
         <p>You may Save & Load your Data</p>
         <p>Click on 'End Day' to begin a new Day!</p>
     </div>
-    <h4>Your Funds: [Placeholder]</h4>
+    <h4>Your Funds: {{ CurrentFunds }}</h4>
   </div>
 </div>
 </template>
 <script>
+
+export default {
+
+}
 </script>
 <style>
 </style>

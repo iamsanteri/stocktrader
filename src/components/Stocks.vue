@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="panel panel-success" v-for="stock in stocks" v-bind:key="stock">
+        <div class="panel panel-success stock-panel" v-for="stock in getMarketStocks" v-bind:key="stock">
             <div class="panel-heading"><h4>{{ stock.name }}</h4> (Price: {{ stock.price }})</div>
             <div class="panel-body">
                 <form class="navbar-form navbar-left">
@@ -18,23 +18,23 @@
 export default {
     data: function() {
         return {
-            stocks: [
-                { name : "BMW", price : 10 },
-                { name : "Google", price : 20 },
-                { name : "Apple", price : 30 },
-                { name : "Twitter", price : 40 }
-            ]
+            
+        }
+    },
+    computed: {
+        getMarketStocks: function() {
+            return this.$store.getters.getMarketStocks;
         }
     }
 }
 </script>
 
-<style scoped>
+<style>
 
 h4 {
     display: inline; 
 }
-.panel {
+.stock-panel {
     margin-left: 2%;
     margin-right: 2%;
     float: left;

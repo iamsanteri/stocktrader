@@ -30,7 +30,7 @@
                 <li><a href="#">Separated link</a></li>
             </ul>
             </li>
-            <li><p class="navbar-text"><b>Funds: [Placeholder]</b></p></li>
+            <li><p class="navbar-text"><b>Funds: {{ CurrentFunds }}</b></p></li>
         </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -38,9 +38,15 @@
 </template>
 
 <script>
+
 export default {
     data: function() {
         return {
+        }
+    },
+    computed: {
+        CurrentFunds() {
+            return this.$store.getters.getCurrentFunds;
         }
     },
     methods: {
