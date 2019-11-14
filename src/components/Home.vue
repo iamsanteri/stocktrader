@@ -13,7 +13,12 @@
 <script>
 
 export default {
+    computed: {
+        CurrentFunds() {
+            return this.$store.getters.getCurrentFunds;
 
+        }
+    }
 }
 </script>
 <style>
