@@ -7,9 +7,9 @@
                 <div class="panel-body">
                     <form class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Quantity">
+                            <input type="text" class="form-control" v-model.number="quantity[index]" @focus="buttonQue[index] = false" @blur="buttonQue[index] = true" :key="index" placeholder="Quantity">
                         </div>
-                        <button type="submit" class="btn btn-danger">Buy</button>
+                        <button type="submit" v-on:click.prevent="sellStockAmount(quantity)" :class="{disabled: buttonQue[index]}" :key="index" class="btn btn-danger">Sell</button>
                     </form>
                 </div>
             </div>
@@ -21,7 +21,9 @@ export default {
     data: function() {
         return {
             // If the user owns stocks, this property is set to "none"
-            conditionalVisibility: ""
+            conditionalVisibility: "",
+            quantity: [],
+            buttonQue: [true, true, true, true]
         }
     },
     computed: {
@@ -32,6 +34,13 @@ export default {
             }
             return a;
 
+        }
+    },
+    methods: {
+        sellStockAmount: function(sellingQuantity) {
+            this.$store.commit("sale", sellingQuantity);
+            this.quantity = [];
+            this.buttonQue = [true, true, true, true];
         }
     }
 }

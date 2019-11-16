@@ -1,7 +1,9 @@
 <template>
     <div class="container">
         <Nav></Nav>
-        <router-view></router-view>
+        <transition name="fade" mode="out-in" appear>
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 
@@ -20,5 +22,15 @@
 </script>
 
 <style>
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.4s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
 
+.fade-enter,
+.fade-leave-active {
+  opacity: 0
+}
 </style>
