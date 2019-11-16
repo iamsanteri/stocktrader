@@ -9,12 +9,12 @@ export const store = new Vuex.Store({
     state: {
       funds: 10000,
       marketStocks: [
-        { name : "BMW", price : 10 },
-        { name : "Google", price : 20 },
-        { name : "Apple", price : 30 },
-        { name : "Twitter", price : 40 }
+        { name : "BMW", price : 10, ownedQuantity: 0},
+        { name : "Google", price : 20, ownedQuantity: 0},
+        { name : "Apple", price : 30, ownedQuantity: 0},
+        { name : "Twitter", price : 40, ownedQuantity: 0}
       ],
-      userStocks: []
+      doesUserOwnStocks: false
     },
     getters: {
       getCurrentFunds: state => {
@@ -24,22 +24,20 @@ export const store = new Vuex.Store({
         return state.marketStocks;
       },
       getUserStocks: state => {
-        return state.userStocks;
+        return state.marketStocks;
       }
     },
     mutations: {
-      purchase (state, amounts) {
-        
-        var parsedNumbers = amounts.stocks.map(function (x) {
-          return parseInt(x);
-        });
-
-        console.log(parsedNumbers);
-
-        state.userStocks[0] = { name : "BMW", price : parsedNumbers[0] };
-        state.userStocks[1] = { name : "Google", price : parsedNumbers[1] };
-        state.userStocks[2] = { name : "Apple", price : parsedNumbers[2] };
-        state.userStocks[3] = { name : "Twitter", price : parsedNumbers[3] };
+      purchase (state, stocksToPurchase) {
+        for (let i = 0; i < state.marketStocks.length; i++) {
+          if (stocksToPurchase[i] === undefined) {
+            stocksToPurchase[i] = 0;
+          }
+          state.marketStocks[i].ownedQuantity += stocksToPurchase[i];
+          if (state.marketStocks[i].ownedQuantity > 0) {
+            state.doesUserOwnStocks = true;
+          }
+        }
       }
     }
   })

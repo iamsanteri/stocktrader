@@ -5,9 +5,9 @@
             <div class="panel-body">
                 <form class="navbar-form navbar-left">
                     <div class="form-group">
-                        <input type="text" class="form-control" v-model="quantity[index]" :key="index" placeholder="Quantity">
+                        <input type="text" class="form-control" v-model.number="quantity[index]" @focus="buttonQue[index] = false" @blur="buttonQue[index] = true" :key="index" placeholder="Quantity">
                     </div>
-                    <button type="button" v-on:click="addNewStocks" class="btn btn-success">Buy</button>
+                    <button type="button" v-on:click="addNewStocks" :class="{disabled: buttonQue[index]}" :key="index" class="btn btn-success">Buy</button>
                  </form>
             </div>
         </div>
@@ -19,7 +19,8 @@ export default {
     data: function() {
         return {
             // Is an array in order of which list of stocks appear and position in an array matches the quantity ordered for a particular stock. 
-            quantity: []
+            quantity: [],
+            buttonQue: [true, true, true, true]
         }
     },
     computed: {
@@ -29,11 +30,9 @@ export default {
     },
     methods: {
         addNewStocks: function() {
-            this.$store.commit("purchase", {
-                stocks: this.quantity
-            }) 
+            this.$store.commit("purchase", this.quantity);
             this.quantity = [];
-            console.log("Method triggered!");
+            this.buttonQue = [true, true, true, true];
         }
     }
 }
