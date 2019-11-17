@@ -1,8 +1,11 @@
 
 import Vue from 'vue'
 import Vuex from "vuex"
+import Axios from "axios"
+import VueAxios from 'vue-axios'
 
 Vue.use(Vuex);
+Vue.use(VueAxios, Axios);
 
 
 export const store = new Vuex.Store({
@@ -25,6 +28,9 @@ export const store = new Vuex.Store({
       },
       getUserStocks: state => {
         return state.marketStocks;
+      },
+      getAllData: state => {
+        return state;
       }
     },
     mutations: {
@@ -66,9 +72,36 @@ export const store = new Vuex.Store({
         for (let i = 0; i < state.marketStocks.length; i++) {
           state.marketStocks[i].price = Math.floor(Math.random() * 100)
         }
+      },
+      setAllData (state, newState) {
+        state.funds = newState.data.funds;
+        state.marketStocks = newState.data.marketStocks; 
+        state.doesUserOwnStocks = newState.data.doesUserOwnStocks;  
       }
     },
     actions: {
-      
+      saveData() {
+        Vue.axios.put("https://stocktrader-ca973.firebaseio.com/data.json",
+          this.getters.getAllData 
+        )
+        .then(function(res) {
+          alert("Your data has been saved successfully!");
+        })
+        .catch(function (err) {
+          alert("Saving the data failed. See console for more details.");
+          console.log(err);
+        })
+      },
+      loadData( {commit} ) {
+        Vue.axios.get("https://stocktrader-ca973.firebaseio.com/data.json")
+          .then(function (res) {
+            alert("Your data has been loaded successfully!");
+            commit("setAllData", res);
+          })
+          .catch(function (err) {
+            alert("Retrieving the data failed. See console for more details.");
+            console.log(err);
+          })
+      }
     }
   })
